@@ -10,16 +10,16 @@ $(document).ready(function() {
         }
     });
 
-    // $('#contact_lastname').on('focusout', function() {
-    //     var input = $(this);
-    //     var test = input.val();
-    //     if(test){
-    //         input.removeClass('invalid').addClass('valid');
-    //     }
-    //     else{
-    //         input.removeClass('valid').addClass('invalid');
-    //     }
-    // });
+    $('#contact_lastname').on('focusout', function() {
+        var input = $(this);
+        var test = input.val();
+        if(test){
+            input.removeClass('invalid').addClass('valid');
+        }
+        else{
+            input.removeClass('valid').addClass('invalid');
+        }
+    });
 
     $('#contact_email').on('focusout', function() {
         var input=$(this);
@@ -94,15 +94,15 @@ $(document).ready(function() {
             alert('Por favor, insira seu nome.')
             return
         }
-        // if($('#contact_lastname').hasClass('invalid')){
-        //     alert('Por favor, insira seu sobrenome.')
-        //     return
-        // }
+        if($('#contact_lastname').hasClass('invalid')){
+            alert('Por favor, insira seu sobrenome.')
+            return
+        }
         if($('#contact_email').hasClass('invalid')){
             alert('Por favor, insira um email válido.')
             return
-        }
-        if($(('#contact_sms_checker').is(':checked') || ('#contact_whats_checker').is(':checked')) && $('#contact_phone').hasClass('invalid')){
+         }
+        if(($('#contact_sms_checker').is(':checked') || $('#contact_whats_checker').is(':checked')) && $('#contact_phone').hasClass('invalid')){
             alert('Por favor, insira um número de celular válido.')
             return
         }
@@ -130,24 +130,24 @@ $(document).ready(function() {
 
         var rest_data = {
             'first_name': $('#contact_firstname').val(),
-            'last_name': $('contact_lastname').val(),
+            'last_name': $('#contact_lastname').val(),
             'email': $('#contact_email').val(),
             'phone': $('#contact_phone').val(),
             'gender': $('input[name="gender_radio"]:checked', '#contact-form').val(),
             'sms_optin': $("#contact_sms_checker").is(":checked"),
             'email_optin': $("#contact_email_checker").is(":checked"),
-            'whats_optin': $("contact_whats_checker").is(":checked"),
+            'whats_optin': $("#contact_whats_checker").is(":checked"),
             'utm_source': sessionStorage.getItem('utm_source') == null ? '' : sessionStorage.getItem('utm_source'),
             'utm_medium': sessionStorage.getItem('utm_medium') == null ? '' : sessionStorage.getItem('utm_medium'),
             'utm_campaign': sessionStorage.getItem('utm_campaign') == null ? '' : sessionStorage.getItem('utm_campaign'),
             'utm_term': sessionStorage.getItem('utm_term') == null ? '' : sessionStorage.getItem('utm_term'),
             'utm_content': sessionStorage.getItem('utm_content') == null ? '' : sessionStorage.getItem('utm_content'),
             'source_page': querystring[0],
-            'privacy_policy': ''
+            'privacy_policy': 'https://www.clubemarisol.com.br/institucional/politica-de-privacidade'
         }
 
         $.ajax({
-            url: '',
+            url: 'https://qcfvligcta.execute-api.us-east-1.amazonaws.com/prod/lead',
             type: 'POST',
             dataType: 'json',
             contentType: 'application/json; charset=utm-8',
